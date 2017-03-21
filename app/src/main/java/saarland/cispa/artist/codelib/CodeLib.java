@@ -36,11 +36,13 @@ public class CodeLib {
      * @return the name of the calling method
      */
     private String getCallingMethodName() {
+        // CallStack depth of calling function.
+        final int CALLING_METHOD_STACK_LEVEL = 4;
 
         final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         String callingMethodName;
         try {
-            StackTraceElement callingMethod = stackTrace[3];
+            final StackTraceElement callingMethod = stackTrace[CALLING_METHOD_STACK_LEVEL];
             callingMethodName = callingMethod.toString();
         } catch (final NullPointerException e) {
             callingMethodName = MSG_NOT_FOUND;
