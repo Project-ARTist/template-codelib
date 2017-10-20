@@ -16,8 +16,7 @@ cache:
   - "$HOME/.android/build-cache"
 install:
   - sdkmanager --list || true
-  - echo $TRAVIS_BUILD_DIR
-  - ls -al $TRAVIS_BUILD_DIR
+  - ls -al $TRAVIS_BUILD_DIR/
 script:
   - travis_wait gradle build connectedCheck
 deploy:
