@@ -17,11 +17,12 @@ cache:
 install:
   - sdkmanager --list || true
   - ls -al $TRAVIS_BUILD_DIR/
+  - gradle wrapper
 script:
   - travis_wait gradle build connectedCheck
 before_deploy:
   - mv $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
-  
+
 deploy:
   provider: releases
   api_key:
