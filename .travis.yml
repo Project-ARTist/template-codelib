@@ -21,10 +21,8 @@ install:
   - ls -al $HOME/
   - ls -al $HOME/android-sdk
   - ls -al $TRAVIS_BUILD_DIR/
-  - gradle wrapper
 script:
-  - gradle wrapper
-  - travis_wait gradle build connectedCheck
+  - travis_wait ./gradlew build connectedCheck
 before_deploy:
   - mv $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
 
