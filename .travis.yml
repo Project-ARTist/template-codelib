@@ -14,11 +14,15 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
+  - "$HOME/android-sdk-dl"
+  - "$HOME/android-sdk"
 install:
   - sdkmanager --list || true
+  - ls -al $HOME/
   - ls -al $TRAVIS_BUILD_DIR/
   - gradle wrapper
 script:
+  - gradle wrapper
   - travis_wait gradle build connectedCheck
 before_deploy:
   - mv $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
