@@ -19,6 +19,7 @@ cache:
 install:
   - sdkmanager --list || true
   - ls -al $HOME/
+  - ls -al $HOME/android-sdk
   - ls -al $TRAVIS_BUILD_DIR/
   - gradle wrapper
 script:
