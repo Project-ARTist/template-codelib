@@ -25,6 +25,8 @@ import android.util.Log;
 
 public class CodeLib {
 
+    @interface Inject {}
+
     // Instance variable for singleton usage ///////////////////////////////////////////////////////
     public static CodeLib INSTANCE = new CodeLib();
 
@@ -76,6 +78,7 @@ public class CodeLib {
     /**
      *  Tracelog method, prints the method name of the calling method.
      */
+    @Inject
     public void traceLog() {
         final String callingMethodName = getCallingMethodName();
         Log.d(TAG, "Caller -> " + callingMethodName);
