@@ -21,66 +21,85 @@
  */
 package saarland.cispa.artist.codelib;
 
+import android.content.Context;
 import android.util.Log;
 
+
+/**
+ * While the CodeLib project can be considered a companion Android library for ARTist modules,
+ * the `CodeLib` class in particular represents the facade/api to this library. It defines
+ * methods that are available to ARTist instrumentation passes and provides access through a
+ * singleton instance stored in a public field.
+ */
 public class CodeLib {
 
+    /**
+     * This annotation lets you define those APIs that will be made available in target apps,
+     * hence in ARTist you can only inject calls to those CodeLib methods that are annotated properly.
+     */
     @interface Inject {}
 
-    // Instance variable for singleton usage ///////////////////////////////////////////////////////
+    /**
+     * Instance variable for singleton usage. Using the singleton pattern ensures we can have
+     * shared state when calling multiple CodeLib methods from different parts of a target app.
+     *
+     * It HAS to be a static field with exactly this name b/c ARTist expects this field to be present.
+     */
     public static CodeLib INSTANCE = new CodeLib();
 
-    // <Constants> /////////////////////////////////////////////////////////////////////////////////
-    private static final String TAG = "ArtistCodeLib";
+    // Constants
+    private static final String TAG = CodeLib.class.toString();
     private static final String VERSION = TAG + " # 1.0.0";
 
-    final String MSG_NOT_FOUND = "<Not Found>";
-    // </Constants> ////////////////////////////////////////////////////////////////////////////////
+    @SuppressWarnings("WeakerAccess")
+    public  final static String MSG_NOT_FOUND = "<Not Found>";
+
 
     /**
-     * Static Class Constructor
+     * Private class constructor to forbid further instance creation.
      */
-    static {
-        // <Code>
-    }
-
-    /**
-     * Private Class Constructor
-     * => Forbidden Class Initialisation (Singleton)
-      */
     private CodeLib() {
-        Log.v(TAG, TAG + " CodeLib() " + VERSION);
+        Log.v(TAG, TAG + " CodeLib v" + VERSION + " initialized.");
     }
 
-    /** Get the name of the calling method
-     *
-     * The name is probed from the current Thread's stacktrace.
-     *
-     * @return the name of the calling method
-     */
-    private String getCallingMethodName() {
-        // CallStack depth of calling function.
-        final int CALLING_METHOD_STACK_LEVEL = 4;
 
-        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String callingMethodName;
-        try {
-            final StackTraceElement callingMethod = stackTrace[CALLING_METHOD_STACK_LEVEL];
-            callingMethodName = callingMethod.toString();
-        } catch (final NullPointerException e) {
-            callingMethodName = MSG_NOT_FOUND;
-        } catch (final ArrayIndexOutOfBoundsException e) {
-            callingMethodName = MSG_NOT_FOUND;
+
+    /**
+     *  Injection target for an injection artist instrumentation pass.
+     *
+     *  Invocations of this method will be added to the target by ARTist.
+     * @param fortytwo expected to be the constant 42.
+     */
+    @SuppressWarnings("unused")
+    @Inject
+    public void injectionArtistTarget(int fortytwo) {
+        if (fortytwo != 42) {
+            Log.e(TAG, "Error! Our artist pass provided " + fortytwo + " instead of 42");
+        } else {
+            Log.d(TAG, "Injection successfull");
         }
-        return callingMethodName;
     }
 
     /**
-     *  Tracelog method, prints the method name of the calling method.
+     * Injection target for an artist instrumentation pass.
+     *
+     * Invocations of this method will be added to the target by ARTist.
+     *
+     * @param leet expected to be 1337.
+     * @param thiz the object from which this method was called.
      */
+    @SuppressWarnings("unused")
     @Inject
-    public void traceLog() {
-        final String callingMethodName = getCallingMethodName();
-        Log.d(TAG, "Caller -> " + callingMethodName);
+    public void basicArtistTarget(int leet, Object thiz) {
+        if (leet != 1337) {
+            Log.e(TAG, "Error! Our artist pass provided " + leet + " instead of 1337");
+            return;
+        }
+        // now you can do sth meaningful with the `this` pointer of the object from which we are called
+        if (thiz instanceof Context) {
+            Log.i(TAG, "Found a context object, maybe store it for later?");
+            // ...
+        }
+        // ...
     }
 }
