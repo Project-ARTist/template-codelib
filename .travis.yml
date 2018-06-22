@@ -23,16 +23,16 @@ install:
   - ls -al $TRAVIS_BUILD_DIR/
 script:
   - travis_wait ./gradlew build connectedCheck
-before_deploy:
-  - mv $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
+#before_deploy:
+#  - mv $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
 
-deploy:
-  provider: releases
-  api_key:
-    secure: SIS4vlZudKtpCqA2vsW133YNd43K4Xez/vSJ8oF/HPYZpJIGjx3cVkpcSI6GANKscZRBGPf6T0R64IxRyWliClatK2HCoZKGRWkpStMpdrHEjlLXs7Odx+EZvarSfF1Ol8dM45ocpcIFGqM8zb9x9+OIip/NGnUoFrW41nFMRs0R+zPJMHwomvOhWiLU4ShPHRHkvcbLzk4EJd7bPPuZeZA0PaMooND6Nfw46DxYpyal1hvr21vDQ6UrG63cAFhO2TDMb9kE2OxTGX2L5IATCfcsiTnuBUdYvu8gcDJbYZFH8rQNkRhl5LeWhF1KcNkNQgCP4Zv8FhJ8mKsu/fA9aSHQZiawWtLqtpMaGbBMaW1xFL/r+xN5hPB6Ye4lLO+sphl98Bs29My2L0Sd6VBmGVv/qvWXrvrgFGv6Yh+x01ZyFrNHWjySBx4PpTQAzSPS8693A4qYLpqAjw+mcBs1Uef7xX1DecGVeD08q6jJa6RaNfabnHQCo1Teb1ResxePQmGLResp82PfWIbLc/iiqmncl7PNBVl3dQRxCFsVDnBXUpCmOVR/Ll2beIW5pO9BCLUYeKpgDy/8vvL/XtKsFEeWNb2WUqmFtvn5MZRWRfKErw17wWFBd5VjEdgIQePWRnL5KvTJRUlHzSDmDNJF34+LaIO/wSq80FXbqiDOUZ0=
-  # file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk
-  file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
-  skip_cleanup: true
-  on:
-    tags: true
-    repo: Project-ARTist/CodeLib
+#deploy:
+#  provider: releases
+#  api_key:
+#    secure: SIS4vlZudKtpCqA2vsW133YNd43K4Xez/vSJ8oF/HPYZpJIGjx3cVkpcSI6GANKscZRBGPf6T0R64IxRyWliClatK2HCoZKGRWkpStMpdrHEjlLXs7Odx+EZvarSfF1Ol8dM45ocpcIFGqM8zb9x9+OIip/NGnUoFrW41nFMRs0R+zPJMHwomvOhWiLU4ShPHRHkvcbLzk4EJd7bPPuZeZA0PaMooND6Nfw46DxYpyal1hvr21vDQ6UrG63cAFhO2TDMb9kE2OxTGX2L5IATCfcsiTnuBUdYvu8gcDJbYZFH8rQNkRhl5LeWhF1KcNkNQgCP4Zv8FhJ8mKsu/fA9aSHQZiawWtLqtpMaGbBMaW1xFL/r+xN5hPB6Ye4lLO+sphl98Bs29My2L0Sd6VBmGVv/qvWXrvrgFGv6Yh+x01ZyFrNHWjySBx4PpTQAzSPS8693A4qYLpqAjw+mcBs1Uef7xX1DecGVeD08q6jJa6RaNfabnHQCo1Teb1ResxePQmGLResp82PfWIbLc/iiqmncl7PNBVl3dQRxCFsVDnBXUpCmOVR/Ll2beIW5pO9BCLUYeKpgDy/8vvL/XtKsFEeWNb2WUqmFtvn5MZRWRfKErw17wWFBd5VjEdgIQePWRnL5KvTJRUlHzSDmDNJF34+LaIO/wSq80FXbqiDOUZ0=
+#  # file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-release-unsigned.apk
+#  file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/CodeLib-${TRAVIS_TAG}.apk
+#  skip_cleanup: true
+#  on:
+#    tags: true
+#    repo: Project-ARTist/CodeLib
