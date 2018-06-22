@@ -1,4 +1,11 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'com.gladed.androidgitversion' version '0.4.4'
+}
+
+androidGitVersion {
+    prefix 'v'  // to match our tag format, e.g. v0.0.1-beta
+}
 
 android {
     compileSdkVersion 25
@@ -7,8 +14,8 @@ android {
         applicationId "saarland.cispa.artist.codelib"
         minSdkVersion 23
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionName androidGitVersion.name()
+        versionCode androidGitVersion.code()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
